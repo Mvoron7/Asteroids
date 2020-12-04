@@ -10,15 +10,16 @@ namespace Asteroids
 {
     public partial class GameCore
     {
+        private const int DELAY = 41; // ~24 FPS
+
         private bool _isRun;
-        private List<Element> _elements;
         private List<Stone> _stones;
         private List<Bulet> _bulets;
         private List<Brander> _branders;
         private readonly Laser _laser;
 
-        private List<IMovable> movables;
-        private List<IDestructible> destructibles;
+        private List<IMovable> _movables;
+        private List<IDestructible> _destructibles;
 
         private readonly IWindow _window;
 
@@ -27,7 +28,8 @@ namespace Asteroids
             _stones = new List<Stone>();
             _bulets = new List<Bulet>();
             _branders = new List<Brander>();
-            _elements = new List<Element>();
+            _movables = new List<IMovable>();
+            _destructibles = new List<IDestructible>();
             _laser = new Laser(100);
 
             AddElement(new BigStone(new Point(0, 0), 1, 1));
@@ -50,7 +52,7 @@ namespace Asteroids
             while (_isRun)
             {
                 Takt();
-                Thread.Sleep(41);
+                Thread.Sleep(DELAY);
             }
         }
 
@@ -61,9 +63,9 @@ namespace Asteroids
             Brander.target = new Point(400, 225);
 
             MoveObjects();
-            CollapseAndDestoy();
-            LostFocus();
             //IsGameOver();
+            CollisionsAndWeapoin();
+            LostFocus();
             Remove();
 
             _laser.Disable();
@@ -82,7 +84,7 @@ namespace Asteroids
 
         private void MoveObjects()
         {
-            _elements.ForEach(e => e.Move());
+            _movables.ForEach(m => m.Move());
         }
 
         internal void Stop()

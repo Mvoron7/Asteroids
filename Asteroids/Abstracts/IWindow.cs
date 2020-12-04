@@ -2,14 +2,15 @@
 
 namespace Asteroids.Abstracts
 {
+    /// <summary>Окно для отрисовки и обратной связи от игрока</summary>
     public interface IWindow
     {
         /// <summary>Отрисовка объектов</summary>
-        /// <param name="elements">Набор объектов тля отрисовки</param>
+        /// <param name="elements">Набор объектов для отрисовки</param>
         void Render(ToRender elements);
 
         /// <summary>Получение </summary>
-        /// <returns></returns>
+        /// <returns>Нажатые кнопки</returns>
         States State();
     }
 }

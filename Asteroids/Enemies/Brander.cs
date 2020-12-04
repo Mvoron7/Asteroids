@@ -9,17 +9,22 @@ namespace Asteroids.Enemies
         public static Point target;
         private readonly int _speed;
 
+        public bool isDestroyed { get; private set; }
+
+        public double dX { get; private set; }
+        public double dY { get; private set; }
+
         public Brander(Point point, int speed)
         {
-            position = point;
+            Position = point;
             _speed = speed;
             Size = 15;
             isDestroyed = false;
         }
 
-        public override void Move()
+        public void Move()
         {
-            position = Maths.GetTargetPoint(position, target, _speed);
+            Position = Maths.GetTargetPoint(Position, target, _speed);
         }
 
         public IEnumerable<Element> Destroy()
@@ -29,7 +34,12 @@ namespace Asteroids.Enemies
 
         public override string ToString()
         {
-            return $"Brander [{this.position.X:f4}:{this.position.Y:f4}] {this.Size:f4}\n";
+            return $"Brander [{this.Position.X:f4}:{this.Position.Y:f4}] {this.Size:f4}\n";
+        }
+
+        public void MarkDestroed()
+        {
+            isDestroyed = true;
         }
     }
 }

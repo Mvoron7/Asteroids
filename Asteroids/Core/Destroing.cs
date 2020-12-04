@@ -1,4 +1,5 @@
-﻿using Asteroids.Enemies;
+﻿using Asteroids.Abstracts;
+using Asteroids.Enemies;
 using Asteroids.Weapons;
 using System.Linq;
 using System.Windows;
@@ -7,18 +8,15 @@ namespace Asteroids
 {
     public partial class GameCore
     {
-        private void CollapseAndDestoy()
+        private void CollisionsAndWeapoin()
         {
             for (int i = 0; i < _stones.Count; i++)
             {
                 for (int j = i + 1; j < _stones.Count; j++)
                 {
-                    if (_stones[i].Collapse(_stones[j]))
-                    {
-                        _stones[i].isDestroyed = true;
-                        _stones[j].isDestroyed = true;
+                    Maths.Collision(_stones[i], _stones[j]);
+                    if (_stones[i].isDestroyed)
                         break;
-                    }
                 }
             }
 
@@ -26,22 +24,17 @@ namespace Asteroids
             {
                 for (int stoneIndex = 0; stoneIndex < _stones.Count; stoneIndex++)
                 {
-                    if (_bulets[buletIndex].Collapse(_stones[stoneIndex]))
-                    {
-                        _bulets[buletIndex].isDestroyed = true;
-                        _stones[stoneIndex].isDestroyed = true;
+                    Maths.Collision(_bulets[buletIndex],_stones[stoneIndex]);
+                    if (_bulets[buletIndex].isDestroyed)
                         break;
-                    }
                 }
 
                 for (int branderIndex = 0; branderIndex < _branders.Count; branderIndex++)
                 {
-                    if (_bulets[buletIndex].Collapse(_branders[branderIndex]))
-                    {
-                        _bulets[buletIndex].isDestroyed = true;
-                        _branders[branderIndex].isDestroyed = true;
+
+                    Maths.Collision(_bulets[buletIndex], _branders[branderIndex]);
+                    if (_bulets[buletIndex].isDestroyed)
                         break;
-                    }
                 }
             }
 
@@ -49,27 +42,27 @@ namespace Asteroids
             {
                 foreach (Stone stone in _stones)
                 {
-                    if (Maths.Distance(stone.position, _laser.position, new Point(400, 225)) < stone.Size)
-                        stone.isDestroyed = true;
+                    if (Maths.Distance(stone.Position, _laser.Position, new Point(400, 225)) < stone.Size)
+                        stone.MarkDestroed();
                 }
 
                 foreach (Bulet bulet in _bulets)
                 {
-                    if (Maths.Distance(bulet.position, _laser.position, new Point(400, 255)) < bulet.Size)
-                        bulet.isDestroyed = true;
+                    if (Maths.Distance(bulet.Position, _laser.Position, new Point(400, 255)) < bulet.Size)
+                        bulet.MarkDestroed();
                 }
 
                 foreach (Brander brander in _branders)
                 {
-                    if (Maths.Distance(brander.position, _laser.position, new Point(400, 255)) < brander.Size)
-                        brander.isDestroyed = true;
+                    if (Maths.Distance(brander.Position, _laser.Position, new Point(400, 255)) < brander.Size)
+                        brander.MarkDestroed();
                 }
             }
         }
 
         private void LostFocus()
         {
-            _elements = _elements.Where(e => Maths.inSpase(e)).ToList();
+            _movables.Where(m => Maths.inSpase((Element)m));
         }
     }
 }

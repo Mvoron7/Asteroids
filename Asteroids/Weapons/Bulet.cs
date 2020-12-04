@@ -4,15 +4,25 @@ using System.Windows;
 
 namespace Asteroids.Weapons
 {
-    /// <summary>Снаряд выпускаемые кораблем</summary>
+    /// <summary>Снаряд выпускаемый кораблем</summary>
     public class Bulet : Weapon, IMovable, IDestructible
     {
+        public double dX { get; private set; }
+        public double dY { get; private set; }
+
+        public bool isDestroyed { get; private set; }
+
         public Bulet(Point point, double dx, double dy)
         {
-            position = point;
+            Position = point;
             dX = dx;
             dY = dy;
             Size = 4.9;
+        }
+
+        public void Move()
+        {
+            Position = new Point(Position.X + dX, Position.Y + dY);
         }
 
         public IEnumerable<Element> Destroy()
@@ -22,7 +32,12 @@ namespace Asteroids.Weapons
 
         public override string ToString()
         {
-            return $"Bulet [{this.position.X:f4}:{this.position.Y:f4}] {this.Size:f4}\n";
+            return $"Bulet [{this.Position.X:f4}:{this.Position.Y:f4}] {this.Size:f4}\n";
+        }
+
+        public void MarkDestroed()
+        {
+            isDestroyed = true;
         }
     }
 }

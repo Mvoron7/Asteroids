@@ -56,7 +56,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\AddRemoveElements.cs" />
-    <Compile Include="Core\CalcDD.cs" />
+    <Compile Include="Core\Destroing.cs" />
     <Compile Include="Core\Maths.cs" />
     <Compile Include="Core\Shoot.cs" />
     <Compile Include="Structures\ToRender.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="Enemies\MediumStone.cs" />
     <Compile Include="Enemies\SmallStone.cs" />
     <Compile Include="Enemies\Stone.cs" />
-    <Compile Include="Abstracts\IDestoible.cs" />
+    <Compile Include="Abstracts\IDestructible.cs" />
     <Compile Include="Abstracts\IMovable.cs" />
     <Compile Include="Weapons\Laser.cs" />
     <Compile Include="Structures\States.cs" />
@@ -81,7 +81,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Abstracts\IWindow.cs" />
-    <Compile Include="Enemies\Enemy.cs" />
+    <Compile Include="Abstracts\Enemy.cs" />
     <Compile Include="Core\GameCore.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

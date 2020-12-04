@@ -4,22 +4,19 @@ using System.Windows;
 
 namespace Asteroids.Enemies
 {
-    public class BigStone : Stone, IMovable, IDestructible
+    public class BigStone : Stone
     {
-        public BigStone(Point point, double dx, double dy)
+        public BigStone(Point point, double dx, double dy) :base (dx, dy)
         {
-            position = point;
-            dX = dx;
-            dY = dy;
-            Size = Stone.Big;
-            isDestroyed = false;
+            Position = point;
+            Size = Big;
         }
 
         public override IEnumerable<Element> Destroy()
         {
             return new List<Stone>()
             {
-                new MediumStone(position, 0, 5),
+                new MediumStone(Position, 0, 5),
                 //new MediumStone(position, 0, -5),
                 //new MediumStone(position, 5, 0),
             };

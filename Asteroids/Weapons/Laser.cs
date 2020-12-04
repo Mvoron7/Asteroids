@@ -25,7 +25,7 @@ namespace Asteroids.Weapons
         {
             if (Power >= 2)
             {
-                position = Maths.GetTargetPoint(new Point(400, 255), target, 1000);
+                Position = Maths.GetTargetPoint(new Point(400, 255), target, 1000);
                 Power -= 2;
                 Enabled = true;
             }
@@ -35,7 +35,7 @@ namespace Asteroids.Weapons
 
         public override string ToString()
         {
-            return $"Laser [400:225] [{this.position.X:f4}:{this.position.Y:f4}]\n";
+            return $"Laser [400:225] [{this.Position.X:f4}:{this.Position.Y:f4}]\n";
         }
     }
 }

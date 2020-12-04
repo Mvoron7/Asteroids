@@ -51,15 +51,33 @@ namespace Asteroids
         /// Возвращает вхождение елемента в отображаемое поле. Размеры поля считаем неизменными.
         /// </summary>
         /// <param name="element">Элемент для проверки</param>
-        /// <returns>Наличие элемента в отображаемом поле</returns>
+        /// <returns>True - элемент виден на поле</returns>
         public static bool inSpase(Element element)
         {
-            bool inSpace = element.position.X >= 0;
-            inSpace = inSpace && element.position.X <= 800;
-            inSpace = inSpace && element.position.Y >= 0;
-            inSpace = inSpace && element.position.Y <= 450;
+            bool inSpace = element.Position.X >= 0;
+            inSpace = inSpace && element.Position.X <= 800;
+            inSpace = inSpace && element.Position.Y >= 0;
+            inSpace = inSpace && element.Position.Y <= 450;
 
             return inSpace;
+        }
+
+        /// <summary>Расчет столкновений объектов</summary>
+        /// <param name="first">Первый объект</param>
+        /// <param name="second">Второй объект</param>
+        public static void Collision<T1,T2>(T1 first, T2 second)
+        where T1: Element, IDestructible
+        where T2: Element, IDestructible
+        {
+            double dX = first.Position.X - second.Position.X;
+            double dY = first.Position.Y - second.Position.Y;
+            double distance = Math.Sqrt(dX * dX + dY * dY);
+
+            if( distance < (second.Size + first.Size))
+            {
+                first.MarkDestroed();
+                second.MarkDestroed();
+            }
         }
     }
 }

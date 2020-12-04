@@ -4,9 +4,9 @@
     public interface IMovable
     {
         /// <summary>Перемещение по оси X за один фрейм</summary>
-        double dX { set; }
+        double dX { get; }
         /// <summary>Перемещение по оси Y за один фрейм</summary>
-        double dY { set; }
+        double dY { get; }
 
         /// <summary>Переместить объект</summary>
         void Move();

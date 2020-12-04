@@ -18,7 +18,6 @@ namespace Asteroids
                 }
             });
 
-            _elements = _elements.Where(e => !e.isDestroyed).ToList();
             _stones = _stones.Where(e => !e.isDestroyed).ToList();
             _bulets = _bulets.Where(e => !e.isDestroyed).ToList();
             _branders = _branders.Where(e => !e.isDestroyed).ToList();
@@ -28,39 +27,44 @@ namespace Asteroids
 
         private void AddElement(Stone stone)
         {
-            _elements.Add(stone);
             _stones.Add(stone);
+            _movables.Add(stone);
+            _destructibles.Add(stone);
         }
 
         private void AddElement(Bulet bulet)
         {
-            _elements.Add(bulet);
             _bulets.Add(bulet);
+            _movables.Add(bulet);
+            _destructibles.Add(bulet);
         }
 
         private void AddElement(Brander brander)
         {
-            _elements.Add(brander);
             _branders.Add(brander);
+            _movables.Add(brander);
+            _destructibles.Add(brander);
         }
-
 
         private void RemoveElement(Stone stone)
         {
-            _elements.Remove(stone);
             _stones.Remove(stone);
+            _movables.Remove(stone);
+            _destructibles.Remove(stone);
         }
 
         private void RemoveElement(Bulet bulet)
         {
-            _elements.Remove(bulet);
             _bulets.Remove(bulet);
+            _movables.Remove(bulet);
+            _destructibles.Remove(bulet);
         }
 
         private void RemoveElement(Brander brander)
         {
-            _elements.Remove(brander);
             _branders.Remove(brander);
+            _movables.Remove(brander);
+            _destructibles.Remove(brander);
         }
     }
 }

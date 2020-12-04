@@ -46,7 +46,7 @@ namespace Asteroids
                         Height = e.Size * 2,
                         Width = e.Size * 2,
                         Fill = stone,
-                        Margin = new Thickness(e.position.X - e.Size, e.position.Y - e.Size, 0, 0),
+                        Margin = new Thickness(e.Position.X - e.Size, e.Position.Y - e.Size, 0, 0),
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Top,
                     });
@@ -60,7 +60,7 @@ namespace Asteroids
                         Height = e.Size * 2,
                         Width = e.Size * 2,
                         Fill = bulet,
-                        Margin = new Thickness(e.position.X - e.Size, e.position.Y - e.Size, 0, 0),
+                        Margin = new Thickness(e.Position.X - e.Size, e.Position.Y - e.Size, 0, 0),
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Top,
                     });
@@ -74,7 +74,7 @@ namespace Asteroids
                         Height = e.Size * 2,
                         Width = e.Size * 2,
                         Fill = brander,
-                        Margin = new Thickness(e.position.X - e.Size, e.position.Y - e.Size, 0, 0),
+                        Margin = new Thickness(e.Position.X - e.Size, e.Position.Y - e.Size, 0, 0),
                         HorizontalAlignment = HorizontalAlignment.Left,
                         VerticalAlignment = VerticalAlignment.Top,
                     });
@@ -90,8 +90,8 @@ namespace Asteroids
                         Stroke = laser,
                         X1 = 400,
                         Y1 = 225,
-                        X2 = elements.laser.position.X,
-                        Y2 = elements.laser.position.Y,
+                        X2 = elements.laser.Position.X,
+                        Y2 = elements.laser.Position.Y,
                         StrokeThickness = 5,
                     });
                     Vector.Text += elements.laser.ToString();

@@ -3,29 +3,15 @@ using System.Windows;
 
 namespace Asteroids.Abstracts
 {
+    /// <summary>Базовый класс для всех отображаемых элементов</summary>
     public abstract class Element
     {
-        public Point position;
+        /// <summary>Положение на карте</summary>
+        public Point Position { get; set; }
 
-        public double dX { get; set; }
-        public double dY { get; set; }
-
+        /// <summary>Размер</summary>
         public double Size { get; set; }
 
-        public virtual void Move()
-        {
-            position = new Point(position.X + dX, position.Y + dY);
-        }
-
-        public bool Collapse(Element e)
-        {
-            double dX = this.position.X - e.position.X;
-            double dY = this.position.Y - e.position.Y;
-            double distance = Math.Sqrt(dX * dX + dY * dY);
-
-            return distance < (e.Size + this.Size);
-        }
-
-        public bool isDestroyed { get; set; }
+        public bool markToDel { get; set; }
     }
 }

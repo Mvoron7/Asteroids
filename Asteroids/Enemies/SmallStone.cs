@@ -4,15 +4,12 @@ using System.Windows;
 
 namespace Asteroids.Enemies
 {
-    public class SmallStone : Stone, IMovable, IDestructible
+    public class SmallStone : Stone
     {
-        public SmallStone(Point point, double dx, double dy)
+        public SmallStone(Point point, double dx, double dy) : base(dx, dy)
         {
-            position = point;
-            dX = dx;
-            dY = dy;
-            Size = Stone.Small;
-            isDestroyed = false;
+            Position = point;
+            Size = Small;
         }
 
         public override IEnumerable<Element> Destroy()
