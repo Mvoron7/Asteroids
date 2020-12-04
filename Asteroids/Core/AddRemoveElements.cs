@@ -12,15 +12,15 @@ namespace Asteroids
             var newStones = new List<Stone>();
             _stones.ForEach(s =>
             {
-                if (s.isDestroyed)
+                if (s.IsDestroyed())
                 {
                     s.Destroy().ToList().ForEach(d => newStones.Add((Stone)d));
                 }
             });
 
-            _stones = _stones.Where(e => !e.isDestroyed).ToList();
-            _bulets = _bulets.Where(e => !e.isDestroyed).ToList();
-            _branders = _branders.Where(e => !e.isDestroyed).ToList();
+            _stones.Where(s => s.NeedRemoved()).ToList().ForEach(s => RemoveElement(s));
+            _bulets.Where(b => b.NeedRemoved()).ToList().ForEach(b => RemoveElement(b));
+            _branders.Where(b => b.NeedRemoved()).ToList().ForEach(b => RemoveElement(b));
 
             newStones.ForEach(s => AddElement(s));
         }

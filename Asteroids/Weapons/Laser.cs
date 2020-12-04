@@ -5,8 +5,8 @@ namespace Asteroids.Weapons
     /// <summary>Лазер корабля</summary>
     public class Laser : Weapon
     {
-        public double Power;
-        public double MaxPower;
+        public double Power { get; private set; }
+        public readonly double MaxPower;
 
         public bool Enabled;
 
@@ -36,6 +36,11 @@ namespace Asteroids.Weapons
         public override string ToString()
         {
             return $"Laser [400:225] [{this.Position.X:f4}:{this.Position.Y:f4}]\n";
+        }
+
+        public override bool NeedRemoved()
+        {
+            return false;
         }
     }
 }

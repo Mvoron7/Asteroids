@@ -10,7 +10,8 @@ namespace Asteroids.Weapons
         public double dX { get; private set; }
         public double dY { get; private set; }
 
-        public bool isDestroyed { get; private set; }
+        private bool _destroyed;
+        private bool _runAway;
 
         public Bulet(Point point, double dx, double dy)
         {
@@ -18,6 +19,11 @@ namespace Asteroids.Weapons
             dX = dx;
             dY = dy;
             Size = 4.9;
+        }
+
+        public override bool NeedRemoved()
+        {
+            return _destroyed || _runAway;
         }
 
         public void Move()
@@ -37,7 +43,27 @@ namespace Asteroids.Weapons
 
         public void MarkDestroed()
         {
-            isDestroyed = true;
+            _destroyed = true;
+        }
+
+        public bool IsDestroyed()
+        {
+            return _destroyed;
+        }
+
+        public Point GetPosition()
+        {
+            return Position;
+        }
+
+        public void MarkAsRunAway()
+        {
+            _runAway = true;
+        }
+
+        public bool IsRunAway()
+        {
+            return _runAway;
         }
     }
 }

@@ -52,12 +52,13 @@ namespace Asteroids
         /// </summary>
         /// <param name="element">Элемент для проверки</param>
         /// <returns>True - элемент виден на поле</returns>
-        public static bool inSpase(Element element)
+        public static bool IsInSpase(IMovable element)
         {
-            bool inSpace = element.Position.X >= 0;
-            inSpace = inSpace && element.Position.X <= 800;
-            inSpace = inSpace && element.Position.Y >= 0;
-            inSpace = inSpace && element.Position.Y <= 450;
+            Point point = element.GetPosition();
+            bool inSpace = point.X >= 0;
+            inSpace = inSpace && point.X <= 800;
+            inSpace = inSpace && point.Y >= 0;
+            inSpace = inSpace && point.Y <= 450;
 
             return inSpace;
         }

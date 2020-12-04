@@ -13,20 +13,32 @@ namespace Asteroids.Enemies
         public double dX { get; private set; }
         public double dY { get; private set; }
 
-        public bool isDestroyed { get; private set; }
-
         public abstract IEnumerable<Element> Destroy();
+
+        private bool _destroyed;
+        private bool _runAway;
 
         protected Stone(double dx, double dy)
         {
             dX = dx;
             dY = dy;
-            isDestroyed = false;
+            _destroyed = false;
         }
+
+        public override bool NeedRemoved()
+        {
+            return _destroyed || _runAway;
+        }
+
 
         public void MarkDestroed()
         {
-            isDestroyed = true;
+            _destroyed = true;
+        }
+
+        public bool IsDestroyed()
+        {
+            return _destroyed;
         }
 
         public void Move()
@@ -37,6 +49,21 @@ namespace Asteroids.Enemies
         public override string ToString()
         {
             return $"Stone [{this.Position.X:f4}:{this.Position.Y:f4}] {this.Size:f4}\n";
+        }
+
+        public Point GetPosition()
+        {
+            return Position;
+        }
+
+        public void MarkAsRunAway()
+        {
+            _runAway = true;
+        }
+
+        public bool IsRunAway()
+        {
+            return _runAway;
         }
     }
 }

@@ -13,13 +13,13 @@ namespace Asteroids
         private const int DELAY = 41; // ~24 FPS
 
         private bool _isRun;
-        private List<Stone> _stones;
-        private List<Bulet> _bulets;
-        private List<Brander> _branders;
+        private readonly List<Stone> _stones;
+        private readonly List<Bulet> _bulets;
+        private readonly List<Brander> _branders;
         private readonly Laser _laser;
 
-        private List<IMovable> _movables;
-        private List<IDestructible> _destructibles;
+        private readonly List<IMovable> _movables;
+        private readonly List<IDestructible> _destructibles;
 
         private readonly IWindow _window;
 

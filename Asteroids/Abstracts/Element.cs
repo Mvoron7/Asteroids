@@ -12,6 +12,8 @@ namespace Asteroids.Abstracts
         /// <summary>Размер</summary>
         public double Size { get; set; }
 
-        public bool markToDel { get; set; }
+        /// <summary>Отметка об необходимости удалении объекта</summary>
+        /// <returns>True - объект требует удаления</returns>
+        public abstract bool NeedRemoved();
     }
 }

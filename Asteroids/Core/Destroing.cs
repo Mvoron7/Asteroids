@@ -15,7 +15,7 @@ namespace Asteroids
                 for (int j = i + 1; j < _stones.Count; j++)
                 {
                     Maths.Collision(_stones[i], _stones[j]);
-                    if (_stones[i].isDestroyed)
+                    if (_stones[i].IsDestroyed())
                         break;
                 }
             }
@@ -25,7 +25,7 @@ namespace Asteroids
                 for (int stoneIndex = 0; stoneIndex < _stones.Count; stoneIndex++)
                 {
                     Maths.Collision(_bulets[buletIndex],_stones[stoneIndex]);
-                    if (_bulets[buletIndex].isDestroyed)
+                    if (_bulets[buletIndex].IsDestroyed())
                         break;
                 }
 
@@ -33,7 +33,7 @@ namespace Asteroids
                 {
 
                     Maths.Collision(_bulets[buletIndex], _branders[branderIndex]);
-                    if (_bulets[buletIndex].isDestroyed)
+                    if (_bulets[buletIndex].IsDestroyed())
                         break;
                 }
             }
@@ -62,7 +62,12 @@ namespace Asteroids
 
         private void LostFocus()
         {
-            _movables.Where(m => Maths.inSpase((Element)m));
+            _movables.ForEach(
+            m =>
+            {
+                if (!Maths.IsInSpase(m))
+                    m.MarkAsRunAway();
+            });
         }
     }
 }
