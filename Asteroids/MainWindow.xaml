@@ -1,0 +1,17 @@
+﻿<Window x:Class="Asteroids.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Asteroids"
+        mc:Ignorable="d"
+        Title="Asteroids" SizeToContent="WidthAndHeight"
+        Closing="Window_Closing">
+    <Grid>
+        <Grid x:Name="Space" Height="450" Width="800"/>
+        <StackPanel Width="200" HorizontalAlignment="Left" VerticalAlignment="Top" Height="450">
+            <ProgressBar x:Name="LaserPower" Height="10" VerticalAlignment="Top"/>
+            <TextBlock x:Name="Vector" FontFamily="Consolas" FontSize="10" FontStretch="Condensed" LineStackingStrategy="BlockLineHeight"/>
+        </StackPanel>
+    </Grid>
+</Window>
