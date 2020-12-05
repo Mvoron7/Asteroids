@@ -33,6 +33,11 @@ namespace Asteroids
             dY = nextPoint.Y - Position.Y;
         }
 
+        internal void ResetPosition()
+        {
+            Position = new Point(GameCore.WIDTH_MIDDLE, GameCore.HEIGHT_MIDDLE);
+        }
+
         #region IMovable
         public bool IsRunAway()
         {

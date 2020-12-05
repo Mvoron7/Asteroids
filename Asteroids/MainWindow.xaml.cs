@@ -33,9 +33,6 @@ namespace Asteroids
             SetActualRenders(0);
 
             _core = new GameCore(this);
-
-            runGame = true;
-            _core.Start();
         }
 
         #region IWindow
@@ -55,6 +52,11 @@ namespace Asteroids
             });
 
             return states;
+        }
+
+        public void SetGameOver()
+        {
+            DoInvoke(() => Restart.Visibility = Visibility.Visible);
         }
         #endregion
 
@@ -89,6 +91,13 @@ namespace Asteroids
                     SetActualRenders(2);
                     break;
             }
+        }
+
+        private void Restart_Click(object sender, RoutedEventArgs e)
+        {
+            Restart.Visibility = Visibility.Collapsed;
+            runGame = true;
+            _core.Start();
         }
     }
 }

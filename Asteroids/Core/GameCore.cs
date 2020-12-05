@@ -7,7 +7,6 @@ using System.Threading;
 using System.Windows;
 
 //TODO Спавн астероидов и брандеров
-//TODO Возможность рестартов
 
 namespace Asteroids
 {
@@ -44,6 +43,18 @@ namespace Asteroids
             _destructibles = new List<IDestructible>();
             _laser = new Laser(100);
             _ship = new Ship();
+
+            _window = window;
+        }
+
+        internal void Start()
+        {
+            _stones.Clear();
+            _bulets.Clear();
+            _branders.Clear();
+            _movables.Clear();
+            _destructibles.Clear();
+            _ship.ResetPosition();
             _points = 0;
 
             AddElement(new BigStone(new Point(0, 0), 1, 1));
@@ -52,11 +63,7 @@ namespace Asteroids
 
             AddElement(new Brander(new Point(0, 0), 1));
 
-            _window = window;
-        }
 
-        internal void Start()
-        {
             _isRun = true;
             new Thread(new ThreadStart(Run)).Start();
         }
@@ -68,6 +75,17 @@ namespace Asteroids
                 Takt();
                 Thread.Sleep(DELAY);
             }
+            GameOver();
+        }
+
+        internal void Stop()
+        {
+            _isRun = false;
+        }
+
+        private void GameOver()
+        {
+            _window.SetGameOver();
         }
 
         private void Takt()
@@ -115,6 +133,9 @@ namespace Asteroids
 
             if (_ship.IsDestroyed())
                 _isRun = false;
+
+            if (_movables.Count == 0)
+                _isRun = false;
         }
 
         private void MoveShip(Point position)
@@ -128,11 +149,6 @@ namespace Asteroids
         private void MoveObjects()
         {
             _movables.ForEach(m => m.Move());
-        }
-
-        internal void Stop()
-        {
-            _isRun = false;
         }
     }
 }

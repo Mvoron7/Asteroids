@@ -11,6 +11,7 @@
         Closing="Window_Closing">
     <Grid>
         <Grid x:Name="Space" Height="450" Width="800"/>
+        <Button x:Name="Restart" Width="200" Height="50" Content="Restart" FontFamily="Consolas" FontWeight="Bold" FontSize="25" Click="Restart_Click"/>
         <StackPanel Width="260" HorizontalAlignment="Left" VerticalAlignment="Top" Height="450">
             <ProgressBar x:Name="LaserPower" Height="10" VerticalAlignment="Top"/>
             <TextBlock x:Name="Points" FontFamily="Consolas" FontSize="14"/>

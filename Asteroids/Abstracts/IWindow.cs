@@ -9,8 +9,11 @@ namespace Asteroids.Abstracts
         /// <param name="elements">Набор объектов для отрисовки</param>
         void Render(ToRender elements);
 
-        /// <summary>Получение </summary>
+        /// <summary>Получение состояния устройства ввода</summary>
         /// <returns>Нажатые кнопки</returns>
         States State();
+
+        /// <summary>Конец раунда</summary>
+        void SetGameOver();
     }
 }
