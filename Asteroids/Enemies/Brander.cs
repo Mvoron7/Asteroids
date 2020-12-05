@@ -24,6 +24,11 @@ namespace Asteroids.Enemies
             _runAway = false;
         }
 
+        public override int GetPoint()
+        {
+            return 5;
+        }
+
         public override bool NeedRemoved()
         {
             return _destroyed || _runAway;

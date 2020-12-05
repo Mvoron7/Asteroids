@@ -12,5 +12,6 @@ namespace Asteroids.Structures
         public List<Brander> Branders;
         public Laser Laser;
         public Ship Ship;
+        public int Points;
     }
 }

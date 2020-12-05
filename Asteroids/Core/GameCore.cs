@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 
-
-//TODO Подсчет очков
 //TODO Спавн астероидов и брандеров
 //TODO Возможность рестартов
 
@@ -22,6 +20,8 @@ namespace Asteroids
         public const int HEIGHT_MIDDLE = 225;
 
         private const int DELAY = 41; // ~24 FPS
+
+        private int _points;
 
         private bool _isRun;
         private readonly List<Stone> _stones;
@@ -44,6 +44,7 @@ namespace Asteroids
             _destructibles = new List<IDestructible>();
             _laser = new Laser(100);
             _ship = new Ship();
+            _points = 0;
 
             AddElement(new BigStone(new Point(0, 0), 1, 1));
             AddElement(new BigStone(new Point(200, 200), -1, -1));
@@ -76,6 +77,7 @@ namespace Asteroids
             MoveShip(state.mousePosition);
             MoveObjects();
             CollisionsAndWeapoin();
+            CalcPoints();
             IsGameOver();
             LostFocus();
             Remove();
@@ -91,8 +93,20 @@ namespace Asteroids
                 Bulets = _bulets,
                 Branders = _branders,
                 Laser = _laser,
-                Ship = _ship
+                Ship = _ship,
+                Points = _points,
             });
+        }
+
+        private void CalcPoints()
+        {
+            foreach (Stone stone in _stones)
+                if (stone.IsDestroyed())
+                    _points += stone.GetPoint();
+
+            foreach (Brander brander in _branders)
+                if (brander.IsDestroyed())
+                    _points += brander.GetPoint();
         }
 
         private void IsGameOver()

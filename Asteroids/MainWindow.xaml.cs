@@ -112,6 +112,7 @@ namespace Asteroids
                     VerticalAlignment = VerticalAlignment.Top,
                 });
                 Vector.Text += elements.Ship.ToString();
+                Points.Text = $"Очки: {elements.Points}";
             });
         }
 
