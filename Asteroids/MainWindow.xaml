@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Asteroids" SizeToContent="WidthAndHeight"
         ResizeMode="NoResize"
+        KeyUp="Window_KeyUp"
         Closing="Window_Closing">
     <Grid>
         <Grid x:Name="Space" Height="450" Width="800"/>

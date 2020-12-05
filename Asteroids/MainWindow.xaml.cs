@@ -1,10 +1,9 @@
 ﻿using Asteroids.Abstracts;
+using Asteroids.RenderModules;
 using Asteroids.Structures;
 using System;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 
 namespace Asteroids
@@ -14,20 +13,24 @@ namespace Asteroids
     /// </summary>
     public partial class MainWindow : Window, IWindow
     {
-        private readonly Brush stone = new SolidColorBrush(Colors.Aqua);
-        private readonly Brush bulet = new SolidColorBrush(Colors.BlueViolet);
-        private readonly Brush brander = new SolidColorBrush(Colors.Chocolate);
-        private readonly Brush laser = new SolidColorBrush(Colors.Red);
-        private readonly Brush laser_work = new SolidColorBrush(Colors.Green);
-        private readonly Brush laser_reload = new SolidColorBrush(Colors.Blue);
-        private readonly Brush ship = new SolidColorBrush(Colors.Purple);
         private readonly GameCore _core;
 
         protected bool runGame;
 
+        private readonly IRender[] renders;
+        private IRender actualRenders;
+
         public MainWindow()
         {
             InitializeComponent();
+
+            renders = new IRender[] {
+                new Both() { Window = this },
+                new Visual() { Window = this },
+                new RenderModules.Vector() { Window = this },
+            };
+
+            SetActualRenders(0);
 
             _core = new GameCore(this);
 
@@ -38,82 +41,7 @@ namespace Asteroids
         #region IWindow
         public void Render(ToRender elements)
         {
-            DoInvoke(() =>
-            {
-                Space.Children.Clear();
-                Vector.Text = "";
-
-                elements.Stones.ForEach(e =>
-                {
-                    Space.Children.Add(new Ellipse()
-                    {
-                        Height = e.Size * 2,
-                        Width = e.Size * 2,
-                        Fill = stone,
-                        Margin = new Thickness(e.Position.X - e.Size, e.Position.Y - e.Size, 0, 0),
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        VerticalAlignment = VerticalAlignment.Top,
-                    });
-                    Vector.Text += e.ToString();
-                });
-
-                elements.Bulets.ForEach(e =>
-                {
-                    Space.Children.Add(new Ellipse()
-                    {
-                        Height = e.Size * 2,
-                        Width = e.Size * 2,
-                        Fill = bulet,
-                        Margin = new Thickness(e.Position.X - e.Size, e.Position.Y - e.Size, 0, 0),
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        VerticalAlignment = VerticalAlignment.Top,
-                    });
-                    Vector.Text += e.ToString();
-                });
-
-                elements.Branders.ForEach(e =>
-                {
-                    Space.Children.Add(new Ellipse()
-                    {
-                        Height = e.Size * 2,
-                        Width = e.Size * 2,
-                        Fill = brander,
-                        Margin = new Thickness(e.Position.X - e.Size, e.Position.Y - e.Size, 0, 0),
-                        HorizontalAlignment = HorizontalAlignment.Left,
-                        VerticalAlignment = VerticalAlignment.Top,
-                    });
-                    Vector.Text += e.ToString();
-                });
-
-                LaserPower.Maximum = elements.Laser.MaxPower;
-                LaserPower.Value = elements.Laser.Power;
-                LaserPower.Foreground = elements.Laser.Reloaded ? laser_work : laser_reload;
-                if (elements.Laser.Enabled)
-                {
-                    Space.Children.Add(new Line()
-                    {
-                        Stroke = laser,
-                        X1 = elements.Laser.FromPoint.X,
-                        Y1 = elements.Laser.FromPoint.Y,
-                        X2 = elements.Laser.Position.X,
-                        Y2 = elements.Laser.Position.Y,
-                        StrokeThickness = 5,
-                    });
-                    Vector.Text += elements.Laser.ToString();
-                }
-
-                Space.Children.Add(new Ellipse()
-                {
-                    Height = elements.Ship.Size * 2,
-                    Width = elements.Ship.Size * 2,
-                    Fill = ship,
-                    Margin = new Thickness(elements.Ship.Position.X - elements.Ship.Size, elements.Ship.Position.Y - elements.Ship.Size, 0, 0),
-                    HorizontalAlignment = HorizontalAlignment.Left,
-                    VerticalAlignment = VerticalAlignment.Top,
-                });
-                Vector.Text += elements.Ship.ToString();
-                Points.Text = $"Очки: {elements.Points}";
-            });
+            DoInvoke(actualRenders.GetRenderModule(elements));
         }
 
         public States State()
@@ -130,6 +58,11 @@ namespace Asteroids
         }
         #endregion
 
+        private void SetActualRenders(int index)
+        {
+            actualRenders = renders[index];
+        }
+
         private void DoInvoke(Action action, DispatcherPriority priority = DispatcherPriority.Normal)
         {
             if (runGame)
@@ -140,6 +73,22 @@ namespace Asteroids
         {
             runGame = false;
             _core.Stop();
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            switch (e.Key)
+            {
+                case Key.D1:
+                    SetActualRenders(0);
+                    break;
+                case Key.D2:
+                    SetActualRenders(1);
+                    break;
+                case Key.D3:
+                    SetActualRenders(2);
+                    break;
+            }
         }
     }
 }

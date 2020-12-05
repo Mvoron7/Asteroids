@@ -55,12 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="RenderModules\Both.cs" />
     <Compile Include="Core\AddRemoveElements.cs" />
     <Compile Include="Core\Destroing.cs" />
     <Compile Include="Core\Maths.cs" />
     <Compile Include="Core\Shoot.cs" />
+    <Compile Include="Abstracts\IRender.cs" />
     <Compile Include="Ship.cs" />
     <Compile Include="Structures\ToRender.cs" />
+    <Compile Include="RenderModules\Vector.cs" />
+    <Compile Include="RenderModules\Visual.cs" />
     <Compile Include="Weapons\Bulet.cs" />
     <Compile Include="Abstracts\Element.cs" />
     <Compile Include="Enemies\BigStone.cs" />
