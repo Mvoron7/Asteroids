@@ -7,10 +7,10 @@ namespace Asteroids.Structures
 {
     public struct ToRender
     {
-        public List<Stone> stones;
-        public List<Bulet> bulets;
-        public List<Brander> branders;
-        public Laser laser;
-        public Element ship;
+        public List<Stone> Stones;
+        public List<Bulet> Bulets;
+        public List<Brander> Branders;
+        public Laser Laser;
+        public Ship Ship;
     }
 }

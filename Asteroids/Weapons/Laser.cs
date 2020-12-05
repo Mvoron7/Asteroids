@@ -10,6 +10,8 @@ namespace Asteroids.Weapons
 
         public bool Enabled;
 
+        public Point FromPoint { get; set; }
+
         public Laser(double maxPower)
         {
             Power = maxPower;
@@ -25,17 +27,20 @@ namespace Asteroids.Weapons
         {
             if (Power >= 2)
             {
-                Position = Maths.GetTargetPoint(new Point(400, 255), target, 1000);
+                Position = Maths.GetTargetPoint(FromPoint, target, 1000);
                 Power -= 2;
                 Enabled = true;
             }
         }
 
-        public void Disable() => Enabled = false;
+        public void Disable()
+        {
+            Enabled = false;
+        }
 
         public override string ToString()
         {
-            return $"Laser [400:225] [{this.Position.X:f4}:{this.Position.Y:f4}]\n";
+            return $"Laser [{FromPoint.X:f4}:{FromPoint.Y:f4}] [{Position.X:f4}:{Position.Y:f4}]\n";
         }
 
         public override bool NeedRemoved()

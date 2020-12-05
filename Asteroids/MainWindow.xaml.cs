@@ -18,7 +18,8 @@ namespace Asteroids
         private readonly Brush bulet = new SolidColorBrush(Colors.BlueViolet);
         private readonly Brush brander = new SolidColorBrush(Colors.Chocolate);
         private readonly Brush laser = new SolidColorBrush(Colors.Red);
-        private readonly GameCore core;
+        private readonly Brush ship = new SolidColorBrush(Colors.Purple);
+        private readonly GameCore _core;
 
         protected bool runGame;
 
@@ -26,12 +27,13 @@ namespace Asteroids
         {
             InitializeComponent();
 
-            core = new GameCore(this);
+            _core = new GameCore(this);
 
             runGame = true;
-            core.Start();
+            _core.Start();
         }
 
+        #region IWindow
         public void Render(ToRender elements)
         {
             DoInvoke(() =>
@@ -39,7 +41,7 @@ namespace Asteroids
                 Space.Children.Clear();
                 Vector.Text = "";
 
-                elements.stones.ForEach(e =>
+                elements.Stones.ForEach(e =>
                 {
                     Space.Children.Add(new Ellipse()
                     {
@@ -53,7 +55,7 @@ namespace Asteroids
                     Vector.Text += e.ToString();
                 });
 
-                elements.bulets.ForEach(e =>
+                elements.Bulets.ForEach(e =>
                 {
                     Space.Children.Add(new Ellipse()
                     {
@@ -67,7 +69,7 @@ namespace Asteroids
                     Vector.Text += e.ToString();
                 });
 
-                elements.branders.ForEach(e =>
+                elements.Branders.ForEach(e =>
                 {
                     Space.Children.Add(new Ellipse()
                     {
@@ -81,21 +83,32 @@ namespace Asteroids
                     Vector.Text += e.ToString();
                 });
 
-                LaserPower.Maximum = elements.laser.MaxPower;
-                LaserPower.Value = elements.laser.Power;
-                if (elements.laser.Enabled)
+                LaserPower.Maximum = elements.Laser.MaxPower;
+                LaserPower.Value = elements.Laser.Power;
+                if (elements.Laser.Enabled)
                 {
                     Space.Children.Add(new Line()
                     {
                         Stroke = laser,
-                        X1 = 400,
-                        Y1 = 225,
-                        X2 = elements.laser.Position.X,
-                        Y2 = elements.laser.Position.Y,
+                        X1 = elements.Laser.FromPoint.X,
+                        Y1 = elements.Laser.FromPoint.Y,
+                        X2 = elements.Laser.Position.X,
+                        Y2 = elements.Laser.Position.Y,
                         StrokeThickness = 5,
                     });
-                    Vector.Text += elements.laser.ToString();
+                    Vector.Text += elements.Laser.ToString();
                 }
+
+                Space.Children.Add(new Ellipse()
+                {
+                    Height = elements.Ship.Size * 2,
+                    Width = elements.Ship.Size * 2,
+                    Fill = ship,
+                    Margin = new Thickness(elements.Ship.Position.X - elements.Ship.Size, elements.Ship.Position.Y - elements.Ship.Size, 0, 0),
+                    HorizontalAlignment = HorizontalAlignment.Left,
+                    VerticalAlignment = VerticalAlignment.Top,
+                });
+                Vector.Text += elements.Ship.ToString();
             });
         }
 
@@ -111,6 +124,7 @@ namespace Asteroids
 
             return states;
         }
+        #endregion
 
         private void DoInvoke(Action action, DispatcherPriority priority = DispatcherPriority.Normal)
         {
@@ -121,7 +135,7 @@ namespace Asteroids
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             runGame = false;
-            core.Stop();
+            _core.Stop();
         }
     }
 }

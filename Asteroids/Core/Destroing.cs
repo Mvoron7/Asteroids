@@ -1,8 +1,5 @@
-﻿using Asteroids.Abstracts;
-using Asteroids.Enemies;
+﻿using Asteroids.Enemies;
 using Asteroids.Weapons;
-using System.Linq;
-using System.Windows;
 
 namespace Asteroids
 {
@@ -12,11 +9,17 @@ namespace Asteroids
         {
             for (int i = 0; i < _stones.Count; i++)
             {
+                if (_stones[i].IsDestroyed())
+                    continue;
+
                 for (int j = i + 1; j < _stones.Count; j++)
                 {
-                    Maths.Collision(_stones[i], _stones[j]);
-                    if (_stones[i].IsDestroyed())
+                    if (Maths.Collision(_stones[i], _stones[j]))
+                    {
+                        _stones[i].MarkDestroed();
+                        _stones[j].MarkDestroed();
                         break;
+                    }
                 }
             }
 
@@ -24,17 +27,25 @@ namespace Asteroids
             {
                 for (int stoneIndex = 0; stoneIndex < _stones.Count; stoneIndex++)
                 {
-                    Maths.Collision(_bulets[buletIndex],_stones[stoneIndex]);
-                    if (_bulets[buletIndex].IsDestroyed())
+                    if (_stones[stoneIndex].IsDestroyed())
+                        continue;
+
+                    if (Maths.Collision(_bulets[buletIndex], _stones[stoneIndex]))
+                    {
+                        _bulets[buletIndex].MarkDestroed();
+                        _stones[stoneIndex].MarkDestroed();
                         break;
+                    }
                 }
 
                 for (int branderIndex = 0; branderIndex < _branders.Count; branderIndex++)
                 {
-
-                    Maths.Collision(_bulets[buletIndex], _branders[branderIndex]);
-                    if (_bulets[buletIndex].IsDestroyed())
+                    if (Maths.Collision(_bulets[buletIndex], _branders[branderIndex]))
+                    {
+                        _bulets[buletIndex].MarkDestroed();
+                        _branders[branderIndex].MarkDestroed();
                         break;
+                    }
                 }
             }
 
@@ -42,19 +53,19 @@ namespace Asteroids
             {
                 foreach (Stone stone in _stones)
                 {
-                    if (Maths.Distance(stone.Position, _laser.Position, new Point(400, 225)) < stone.Size)
+                    if (!stone.IsDestroyed() && Maths.Distance(stone.Position, _laser.FromPoint, _laser.Position) < stone.Size)
                         stone.MarkDestroed();
                 }
 
                 foreach (Bulet bulet in _bulets)
                 {
-                    if (Maths.Distance(bulet.Position, _laser.Position, new Point(400, 255)) < bulet.Size)
+                    if (!bulet.IsDestroyed() && Maths.Distance(bulet.Position, _laser.FromPoint, _laser.Position) < bulet.Size)
                         bulet.MarkDestroed();
                 }
 
                 foreach (Brander brander in _branders)
                 {
-                    if (Maths.Distance(brander.Position, _laser.Position, new Point(400, 255)) < brander.Size)
+                    if (!brander.IsDestroyed() && Maths.Distance(brander.Position, _laser.FromPoint, _laser.Position) < brander.Size)
                         brander.MarkDestroed();
                 }
             }
@@ -68,6 +79,29 @@ namespace Asteroids
                 if (!Maths.IsInSpase(m))
                     m.MarkAsRunAway();
             });
+        }
+
+
+        private bool ShipCollisions()
+        {
+            foreach (Stone stone in _stones)
+            {
+                if (Maths.Collision(stone, _ship))
+                    return true;
+            }
+
+            foreach (Bulet bulet in _bulets)
+            {
+                if (Maths.Collision(bulet, _ship))
+                    return true;
+            }
+
+            foreach (Brander brander in _branders)
+            {
+                if (Maths.Collision(brander, _ship))
+                    return true;
+            }
+            return false;
         }
     }
 }

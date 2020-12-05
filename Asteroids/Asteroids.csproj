@@ -59,6 +59,7 @@
     <Compile Include="Core\Destroing.cs" />
     <Compile Include="Core\Maths.cs" />
     <Compile Include="Core\Shoot.cs" />
+    <Compile Include="Ship.cs" />
     <Compile Include="Structures\ToRender.cs" />
     <Compile Include="Weapons\Bulet.cs" />
     <Compile Include="Abstracts\Element.cs" />
@@ -105,6 +106,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -17,9 +17,9 @@ namespace Asteroids.Enemies
 
         public Brander(Point point, int speed)
         {
+            Size = 15;
             Position = point;
             _speed = speed;
-            Size = 15;
             _destroyed = false;
             _runAway = false;
         }
@@ -41,7 +41,7 @@ namespace Asteroids.Enemies
 
         public override string ToString()
         {
-            return $"Brander [{this.Position.X:f4}:{this.Position.Y:f4}] {this.Size:f4}\n";
+            return $"Brander [{Position.X:f4}:{Position.Y:f4}] {Size:f4}\n";
         }
 
         public void MarkDestroed()

@@ -6,10 +6,21 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
 
+
+//TODO Подсчет очков
+//TODO Спавн астероидов и брандеров
+//TODO Возможность рестартов
+
 namespace Asteroids
 {
     public partial class GameCore
     {
+        //Размеры поля считаем неизменными.
+        public const int WIDTH = 800;
+        public const int WIDTH_MIDDLE = 400;
+        public const int HEIGHT = 450;
+        public const int HEIGHT_MIDDLE = 225;
+
         private const int DELAY = 41; // ~24 FPS
 
         private bool _isRun;
@@ -17,6 +28,7 @@ namespace Asteroids
         private readonly List<Bulet> _bulets;
         private readonly List<Brander> _branders;
         private readonly Laser _laser;
+        private readonly Ship _ship;
 
         private readonly List<IMovable> _movables;
         private readonly List<IDestructible> _destructibles;
@@ -31,6 +43,7 @@ namespace Asteroids
             _movables = new List<IMovable>();
             _destructibles = new List<IDestructible>();
             _laser = new Laser(100);
+            _ship = new Ship();
 
             AddElement(new BigStone(new Point(0, 0), 1, 1));
             AddElement(new BigStone(new Point(200, 200), -1, -1));
@@ -60,11 +73,10 @@ namespace Asteroids
         {
             States state = _window.State();
 
-            Brander.target = new Point(400, 225);
-
+            MoveShip(state.mousePosition);
             MoveObjects();
-            //IsGameOver();
             CollisionsAndWeapoin();
+            IsGameOver();
             LostFocus();
             Remove();
 
@@ -75,11 +87,28 @@ namespace Asteroids
 
             _window.Render(new ToRender()
             {
-                stones = _stones,
-                bulets = _bulets,
-                branders = _branders,
-                laser = _laser,
+                Stones = _stones,
+                Bulets = _bulets,
+                Branders = _branders,
+                Laser = _laser,
+                Ship = _ship
             });
+        }
+
+        private void IsGameOver()
+        {
+            ShipCollisions();
+
+            if (_ship.IsDestroyed())
+                _isRun = false;
+        }
+
+        private void MoveShip(Point position)
+        {
+            _ship.SetMove(position);
+            _ship.Move();
+            Brander.target = _ship.Position;
+            _laser.FromPoint = _ship.Position;
         }
 
         private void MoveObjects()

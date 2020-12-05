@@ -48,7 +48,7 @@ namespace Asteroids.Enemies
 
         public override string ToString()
         {
-            return $"Stone [{this.Position.X:f4}:{this.Position.Y:f4}] {this.Size:f4}\n";
+            return $"Stone [{Position.X:f4}:{Position.Y:f4}] {Size:f4}\n";
         }
 
         public Point GetPosition()

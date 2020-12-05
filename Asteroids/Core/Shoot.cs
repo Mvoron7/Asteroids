@@ -7,14 +7,12 @@ namespace Asteroids
 {
     public partial class GameCore
     {
-        #region Shoot
         private void Shoot(States state)
         {
             if (state.Right)
                 ShootLaser(state.mousePosition);
             else if (state.Left)
                 ShootBullet(state.mousePosition);
-
         }
 
         private void ShootLaser(Point mousePosition)
@@ -24,14 +22,13 @@ namespace Asteroids
 
         private void ShootBullet(Point mousePosition)
         {
-            double dX = mousePosition.X - 400;
-            double dY = mousePosition.Y - 225;
+            double dX = mousePosition.X - GameCore.WIDTH_MIDDLE;
+            double dY = mousePosition.Y - GameCore.HEIGHT_MIDDLE;
             double length = Math.Sqrt(dX * dX + dY * dY);
 
             dX /= length / 10;
             dY /= length / 10;
-            AddElement(new Bulet(new Point(400, 225), dX, dY));
+            AddElement(new Bulet(_ship.Position, dX, dY));
         }
-        #endregion
     }
 }

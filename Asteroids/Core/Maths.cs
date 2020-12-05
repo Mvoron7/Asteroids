@@ -23,6 +23,22 @@ namespace Asteroids
             return p1 / p2;
         }
 
+        /// <summary>Проверяет переход границы поля</summary>
+        /// <param name="position">Текущее положение объекта</param>
+        /// <returns>Положение объекта</returns>
+        internal static Point CheckMirror(Point position)
+        {
+            double X = position.X;
+            if (X < 0) X = GameCore.WIDTH;
+            else if (X > GameCore.WIDTH) X = 0;
+
+            double Y = position.Y;
+            if (Y < 0) Y = GameCore.HEIGHT;
+            else if (Y > GameCore.HEIGHT) Y = 0;
+
+            return new Point(X, Y);
+        }
+
         /// <summary>
         /// Маштабирует вектор до заданнго размера
         /// </summary>
@@ -48,7 +64,7 @@ namespace Asteroids
         }
 
         /// <summary>
-        /// Возвращает вхождение елемента в отображаемое поле. Размеры поля считаем неизменными.
+        /// Возвращает вхождение элемента в отображаемое поле
         /// </summary>
         /// <param name="element">Элемент для проверки</param>
         /// <returns>True - элемент виден на поле</returns>
@@ -56,9 +72,9 @@ namespace Asteroids
         {
             Point point = element.GetPosition();
             bool inSpace = point.X >= 0;
-            inSpace = inSpace && point.X <= 800;
+            inSpace = inSpace && point.X <= GameCore.WIDTH;
             inSpace = inSpace && point.Y >= 0;
-            inSpace = inSpace && point.Y <= 450;
+            inSpace = inSpace && point.Y <= GameCore.HEIGHT;
 
             return inSpace;
         }
@@ -66,7 +82,8 @@ namespace Asteroids
         /// <summary>Расчет столкновений объектов</summary>
         /// <param name="first">Первый объект</param>
         /// <param name="second">Второй объект</param>
-        public static void Collision<T1,T2>(T1 first, T2 second)
+        /// <returns>Наличие коллизии</returns>
+        public static bool Collision<T1,T2>(T1 first, T2 second)
         where T1: Element, IDestructible
         where T2: Element, IDestructible
         {
@@ -74,11 +91,7 @@ namespace Asteroids
             double dY = first.Position.Y - second.Position.Y;
             double distance = Math.Sqrt(dX * dX + dY * dY);
 
-            if( distance < (second.Size + first.Size))
-            {
-                first.MarkDestroed();
-                second.MarkDestroed();
-            }
+            return distance < (second.Size + first.Size);
         }
     }
 }

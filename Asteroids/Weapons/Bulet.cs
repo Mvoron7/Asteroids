@@ -38,7 +38,7 @@ namespace Asteroids.Weapons
 
         public override string ToString()
         {
-            return $"Bulet [{this.Position.X:f4}:{this.Position.Y:f4}] {this.Size:f4}\n";
+            return $"Bulet [{Position.X:f4}:{Position.Y:f4}] {Size:f4}\n";
         }
 
         public void MarkDestroed()
