@@ -13,8 +13,6 @@ namespace Asteroids.Enemies
         public double dX { get; private set; }
         public double dY { get; private set; }
 
-        public abstract IEnumerable<Element> Destroy();
-
         private bool _destroyed;
         private bool _runAway;
 
@@ -35,25 +33,15 @@ namespace Asteroids.Enemies
             return _destroyed || _runAway;
         }
 
-
-        public void MarkDestroed()
-        {
-            _destroyed = true;
-        }
-
-        public bool IsDestroyed()
-        {
-            return _destroyed;
-        }
-
-        public void Move()
-        {
-            Position = new Point(Position.X + dX, Position.Y + dY);
-        }
-
         public override string ToString()
         {
             return $"Stone [{Position.X:f4}:{Position.Y:f4}] {Size:f4}\n";
+        }
+
+        #region IMovable
+        public void Move()
+        {
+            Position = new Point(Position.X + dX, Position.Y + dY);
         }
 
         public Point GetPosition()
@@ -70,5 +58,20 @@ namespace Asteroids.Enemies
         {
             return _runAway;
         }
+        #endregion
+
+        #region IDestructible
+        public bool IsDestroyed()
+        {
+            return _destroyed;
+        }
+
+        public void MarkDestroed()
+        {
+            _destroyed = true;
+        }
+
+        public abstract IEnumerable<Element> Destroy();
+        #endregion
     }
 }

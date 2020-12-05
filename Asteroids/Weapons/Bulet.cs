@@ -26,29 +26,15 @@ namespace Asteroids.Weapons
             return _destroyed || _runAway;
         }
 
-        public void Move()
-        {
-            Position = new Point(Position.X + dX, Position.Y + dY);
-        }
-
-        public IEnumerable<Element> Destroy()
-        {
-            return new List<Element>();
-        }
-
         public override string ToString()
         {
             return $"Bulet [{Position.X:f4}:{Position.Y:f4}] {Size:f4}\n";
         }
 
-        public void MarkDestroed()
+        #region IMovable
+        public void Move()
         {
-            _destroyed = true;
-        }
-
-        public bool IsDestroyed()
-        {
-            return _destroyed;
+            Position = new Point(Position.X + dX, Position.Y + dY);
         }
 
         public Point GetPosition()
@@ -65,5 +51,23 @@ namespace Asteroids.Weapons
         {
             return _runAway;
         }
+        #endregion
+
+        #region IDestructible
+        public bool IsDestroyed()
+        {
+            return _destroyed;
+        }
+
+        public void MarkDestroed()
+        {
+            _destroyed = true;
+        }
+
+        public IEnumerable<Element> Destroy()
+        {
+            return new List<Element>();
+        }
+        #region
     }
 }

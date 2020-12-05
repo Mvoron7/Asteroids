@@ -83,6 +83,7 @@ namespace Asteroids
 
             MoveShip(state.mousePosition);
             MoveObjects();
+            Shoot(state);
             CollisionsAndWeapoin();
             CalcPoints();
             IsGameOver();
@@ -92,8 +93,6 @@ namespace Asteroids
 
             _laser.Disable();
             _laser.Reload();
-
-            Shoot(state);
 
             _window.Render(new ToRender()
             {
