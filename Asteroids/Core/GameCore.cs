@@ -2,11 +2,10 @@
 using Asteroids.Enemies;
 using Asteroids.Structures;
 using Asteroids.Weapons;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
-
-//TODO Спавн астероидов и брандеров
 
 namespace Asteroids
 {
@@ -43,26 +42,16 @@ namespace Asteroids
             _destructibles = new List<IDestructible>();
             _laser = new Laser(100);
             _ship = new Ship();
+            _random = new Random(DateTime.Now.Millisecond);
 
             _window = window;
         }
 
         internal void Start()
         {
-            _stones.Clear();
-            _bulets.Clear();
-            _branders.Clear();
-            _movables.Clear();
-            _destructibles.Clear();
-            _ship.ResetPosition();
+            ClearLists();
+            _ship.Reset();
             _points = 0;
-
-            AddElement(new BigStone(new Point(0, 0), 1, 1));
-            AddElement(new BigStone(new Point(200, 200), -1, -1));
-            AddElement(new BigStone(new Point(100, 0), 1, 2));
-
-            AddElement(new Brander(new Point(0, 0), 1));
-
 
             _isRun = true;
             new Thread(new ThreadStart(Run)).Start();
@@ -99,6 +88,7 @@ namespace Asteroids
             IsGameOver();
             LostFocus();
             Remove();
+            SpawnEnemies();
 
             _laser.Disable();
             _laser.Reload();
@@ -129,13 +119,11 @@ namespace Asteroids
 
         private void IsGameOver()
         {
-            ShipCollisions();
-
-            if (_ship.IsDestroyed())
+            if (ShipCollisions())
+            {
+                _ship.MarkDestroed();
                 _isRun = false;
-
-            if (_movables.Count == 0)
-                _isRun = false;
+            }
         }
 
         private void MoveShip(Point position)
@@ -149,6 +137,15 @@ namespace Asteroids
         private void MoveObjects()
         {
             _movables.ForEach(m => m.Move());
+        }
+
+        private void ClearLists()
+        {
+            _stones.Clear();
+            _bulets.Clear();
+            _branders.Clear();
+            _movables.Clear();
+            _destructibles.Clear();
         }
     }
 }

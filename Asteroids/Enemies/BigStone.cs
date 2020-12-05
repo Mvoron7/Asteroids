@@ -6,7 +6,7 @@ namespace Asteroids.Enemies
 {
     public class BigStone : Stone
     {
-        public BigStone(Point point, double dx, double dy) :base (dx, dy)
+        public BigStone(Point point, double dx, double dy) : base(dx, dy)
         {
             Position = point;
             Size = Big;
@@ -16,9 +16,9 @@ namespace Asteroids.Enemies
         {
             return new List<Stone>()
             {
-                new MediumStone(Position, 0, 5),
-                //new MediumStone(position, 0, -5),
-                //new MediumStone(position, 5, 0),
+                new MediumStone(new Point(Position.X, Position.Y - 11.6), 0, -5),
+                new MediumStone(new Point(Position.X + 10.1, Position.Y + 5.8), 4.3, 2.5),
+                new MediumStone(new Point(Position.X - 10.1, Position.Y + 5.8), -4.3, 2.5),
             };
         }
     }

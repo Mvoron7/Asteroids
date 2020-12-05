@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Core\Random.cs" />
+    <Compile Include="Enums\SpaceSide.cs" />
     <Compile Include="RenderModules\Both.cs" />
     <Compile Include="Core\AddRemoveElements.cs" />
     <Compile Include="Core\Destroing.cs" />
@@ -120,8 +122,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Enums\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

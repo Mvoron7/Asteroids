@@ -68,7 +68,7 @@ namespace Asteroids
         /// </summary>
         /// <param name="element">Элемент для проверки</param>
         /// <returns>True - элемент виден на поле</returns>
-        public static bool IsInSpase(IMovable element)
+        public static bool IsInSpace(IMovable element)
         {
             Point point = element.GetPosition();
             bool inSpace = point.X >= 0;

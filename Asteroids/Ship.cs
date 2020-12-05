@@ -9,10 +9,13 @@ namespace Asteroids
         public double dX { get; private set; }
         public double dY { get; private set; }
 
+        private bool _destroyed;
+
         public Ship()
         {
             Position = new Point(GameCore.WIDTH_MIDDLE, GameCore.HEIGHT_MIDDLE);
             Size = 25;
+            _destroyed = false;
         }
 
         public Point GetPosition()
@@ -33,9 +36,10 @@ namespace Asteroids
             dY = nextPoint.Y - Position.Y;
         }
 
-        internal void ResetPosition()
+        internal void Reset()
         {
             Position = new Point(GameCore.WIDTH_MIDDLE, GameCore.HEIGHT_MIDDLE);
+            _destroyed = false;
         }
 
         #region IMovable
@@ -68,12 +72,12 @@ namespace Asteroids
 
         public bool IsDestroyed()
         {
-            return false;
+            return _destroyed;
         }
 
         public void MarkDestroed()
         {
-            // Корабль не может быть разрушен
+            _destroyed = true;
         }
 
         public override bool NeedRemoved()

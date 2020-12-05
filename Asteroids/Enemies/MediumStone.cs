@@ -16,9 +16,9 @@ namespace Asteroids.Enemies
         {
             return new List<Stone>()
             {
-                new SmallStone(Position, 0, 5),
-                //new SmallStone(position, 0, -5),
-                //new SmallStone(position, 5, 0),
+                new SmallStone(new Point(Position.X, Position.Y - 5.8), 0, -2.5),
+                new SmallStone(new Point(Position.X + 5.1, Position.Y + 2.9), 2.2, 1.25),
+                new SmallStone(new Point(Position.X - 5.1, Position.Y + 2.9), -2.2, 1.25),
             };
         }
     }

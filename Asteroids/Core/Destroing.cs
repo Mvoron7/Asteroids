@@ -76,7 +76,7 @@ namespace Asteroids
             _movables.ForEach(
             m =>
             {
-                if (!Maths.IsInSpase(m))
+                if (!Maths.IsInSpace(m))
                     m.MarkAsRunAway();
             });
         }
@@ -87,12 +87,6 @@ namespace Asteroids
             foreach (Stone stone in _stones)
             {
                 if (Maths.Collision(stone, _ship))
-                    return true;
-            }
-
-            foreach (Bulet bulet in _bulets)
-            {
-                if (Maths.Collision(bulet, _ship))
                     return true;
             }
 
