@@ -18,6 +18,8 @@ namespace Asteroids
         private readonly Brush bulet = new SolidColorBrush(Colors.BlueViolet);
         private readonly Brush brander = new SolidColorBrush(Colors.Chocolate);
         private readonly Brush laser = new SolidColorBrush(Colors.Red);
+        private readonly Brush laser_work = new SolidColorBrush(Colors.Green);
+        private readonly Brush laser_reload = new SolidColorBrush(Colors.Blue);
         private readonly Brush ship = new SolidColorBrush(Colors.Purple);
         private readonly GameCore _core;
 
@@ -85,6 +87,7 @@ namespace Asteroids
 
                 LaserPower.Maximum = elements.Laser.MaxPower;
                 LaserPower.Value = elements.Laser.Power;
+                LaserPower.Foreground = elements.Laser.Reloaded ? laser_work : laser_reload;
                 if (elements.Laser.Enabled)
                 {
                     Space.Children.Add(new Line()

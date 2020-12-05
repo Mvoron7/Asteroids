@@ -12,6 +12,7 @@
         <Grid x:Name="Space" Height="450" Width="800"/>
         <StackPanel Width="260" HorizontalAlignment="Left" VerticalAlignment="Top" Height="450">
             <ProgressBar x:Name="LaserPower" Height="10" VerticalAlignment="Top"/>
+            <TextBlock x:Name="Points" FontFamily="Consolas" FontSize="14"/>
             <TextBlock x:Name="Vector" FontFamily="Consolas" FontSize="10" FontStretch="Condensed" LineStackingStrategy="BlockLineHeight"/>
         </StackPanel>
     </Grid>
