@@ -68,6 +68,6 @@ namespace Asteroids.Weapons
         {
             return new List<Element>();
         }
-        #region
+        #endregion
     }
 }
